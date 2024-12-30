@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plot
 
-X_train = np.array([2.5, 3.6, 4.5, 7.8, 5.6, 6.2, 5.6 ])  # our primary component
-Y = np.array([100, 115, 111, 150, 142, 147, 121])   #for loss function
+X_train = np.array([2.5, 3.6, 4.5, 7.8, 5.6, 6.2, 5.6, 5.2 ])  # our primary component
+Y = np.array([100, 115, 111, 150, 142, 147, 121, 85])   #for loss function
 Y_train = np.dot(Y, 1.0) # for conversion into float
 
 #training set
@@ -47,7 +47,24 @@ def CostFunction(X_train, w, b):
 
 print(f"Cost Function: {CostFunction(X_train,w,b)}")
 
-# gradient descent 
+# gradient calculation 
+def ComputeGradient(X_train, Y_train, w, b):
+    N=X_train.shape[0]
+    dj_dw = 0
+    dj_db = 0
+    for i in range(N):
+        f_wb = w*X_train[i]+b
+        dj_dw_i = (f_wb-Y_train[i])*X_train
+        dj_db_i = f_wb-Y_train[i]
+        dj_dw += dj_dw_i
+        dj_db += dj_db_i
+    dj_dw = dj_dw/N
+    dj_db = dj_db/N
+
+    return dj_dw, dj_db
+
+# calculate gradient descent
+
 
 #data visualization using Matplotlib
 y_recv = linearRegression(X_train, w, b)
