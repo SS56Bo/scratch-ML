@@ -18,18 +18,26 @@ for i in range(X_train.shape[0]):
     print (f"[X^{i}, Y^{i}] = [{X_train[i]}, {Y_train[i]}]")
 
 #weights for linear regression
-w = 0
-b = 0
+w = 100
+b = 100
 
 #data visualization using Matplotlib
-plot.scatter(X_train, Y_train, c='g', marker="2")
-plot.title("X vs. Y")  #for the title
+plot.scatter(X_train, Y_train, c='g', marker="X")
+plot.title("Linear Regression")  #for the title
 plot.ylabel("Y-label")
 plot.xlabel("X-label")
 plot.show()
 
 # equation for optimization
+def linearRegression(X_train, w, b):
+    N = X_train.shape[0]
+    f_wb = np.zeros(N)
+    for i in range(N):
+        f_wb[i] = np.dot(w, X_train[i])+b
 
+    return f_wb
+
+print(linearRegression(X_train, w, b))
 # loss function 
 
 # gradient descent 
