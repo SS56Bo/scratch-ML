@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plot
 import math
 
-X_train = np.array([2.5, 3.6, 4.5, 7.8, 5.6, 6.2, 5.6, 5.2 ])  # our primary component
-Y = np.array([100, 115, 111, 150, 142, 147, 121, 85])   #for loss function
+X_train = np.array([2.5, 3.6, 4.5, 4.9, 5.6, 6.2, 5.6, 5.2, 6.1, 6.5, 7.2, 7.5, 8.0, 8.2, 8.4, 8.9])  # our primary component
+Y = np.array([100, 115, 111, 150, 142, 147, 121, 85, 102, 122, 166, 125, 141, 155, 120, 120])   #for loss function
 Y_train = np.array(Y, dtype=float) # for conversion into float
 
 #training set
@@ -85,7 +85,7 @@ def GradientDescent(X_train, Y_train, w_in, b_in, alpha, num_iterations):
         b=b-alpha*dj_db
         w=w-alpha*dj_dw
 
-        if i<num_iterations:
+        if i<=num_iterations:
             J_hist.append(CostFunction(x,w,b))
             weights_hist.append([w,b])
 
@@ -97,15 +97,15 @@ def GradientDescent(X_train, Y_train, w_in, b_in, alpha, num_iterations):
             
     return w,b,J_hist,weights_hist
 alpha_tmp=1.0e-2
-w_final, b_final, Jhist, weightHist = GradientDescent(X_train, Y_train, 0, 0, alpha_tmp, 10000)
+w_final, b_final, Jhist, weightHist = GradientDescent(X_train, Y_train, 0, 0, alpha_tmp, 1000)
 print(f"W_final:{w_final}, b_final:{b_final}")
     
 
 #data visualization using Matplotlib
-# y_recv = linearRegression(X_train, w, b)
-# plot.plot(X_train, y_recv, c='b')
-# plot.scatter(X_train, Y_train, c='g', marker="X")
-# plot.title("Linear Regression")  #for the title
-# plot.ylabel("Y-label")
-# plot.xlabel("X-label")
-# plot.show()
+y_recv = linearRegression(X_train, w_final, b_final)
+plot.plot(X_train, y_recv, c='b')
+plot.scatter(X_train, Y_train, c='r', marker="X")
+plot.title("Linear Regression")  #for the title
+plot.ylabel("Y-label")
+plot.xlabel("X-label")
+plot.show()
