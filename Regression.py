@@ -27,3 +27,18 @@ class LinearRegression:
             costSum += cost
         
         return costSum
+
+    def countGradient(self, X, y_test):
+        N = X.shape[0]
+        dj_dw = 0
+        dj_db = 0
+        for i in range(N):
+            f_wb = self.w*X[i]+self.b
+            dj_dw_i=(f_wb-y_test[i])*X[i]
+            dj_db_i=f_wb-y_test[i]
+            dj_dw += dj_dw_i
+            dj_db += dj_db_i
+        dj_db=dj_db/N
+        dj_dw=dj_dw/N
+        
+        return dj_dw, dj_db
