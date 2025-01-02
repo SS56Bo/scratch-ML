@@ -1,4 +1,6 @@
 import numpy as np
+import math
+import matplotlib.pyplot as plt
 
 class LinearRegression:
     
@@ -42,3 +44,35 @@ class LinearRegression:
         dj_dw=dj_dw/N
         
         return dj_dw, dj_db
+    
+    def Gradient_Descent(self, X_train, y_train, w_in, b_in, alpha, num_iters):
+        """
+        performs gradient descent to find a better fit for w,b. Updates w,b 
+        by taking numberof iterations with learning rate alpha
+        """
+        w_in=self.w
+        b_in=self.b
+        J_hist=[]
+        p_hist=[]
+        x=X_train
+        y=y_train
+
+        for i in range(num_iters):
+            dj_dw, dj_db = self.countGradient(x, y)
+
+            #updating the weights in the algorithm
+            b=b-alpha*dj_db
+            w=w-alpha*dj_dw
+            
+            if i<num_iters:
+                J_hist.append(self.CostFunctionCalc(x, y))
+                p_hist.append([self.w, self.b])
+            
+            #for visualization purpose only
+            if i%math.ceil(num_iters/10)==0:
+                print(f"Iterations {i}: Cost: {J_hist[-1]} ",
+                      f"dj_dw: {dj_dw}, dj_sdb: {dj_db} ",
+                      f"w: {w}, b: {b} "
+                      )
+        
+        return w, b, J_hist, p_hist
