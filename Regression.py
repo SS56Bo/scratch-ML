@@ -50,8 +50,8 @@ class LinearRegression:
         performs gradient descent to find a better fit for w,b. Updates w,b 
         by taking numberof iterations with learning rate alpha
         """
-        w_in=self.w
-        b_in=self.b
+        self.w=w_in
+        self.b=b_in
         J_hist=[]
         p_hist=[]
         x=X_train
@@ -61,8 +61,8 @@ class LinearRegression:
             dj_dw, dj_db = self.countGradient(x, y)
 
             #updating the weights in the algorithm
-            b=b-alpha*dj_db
-            w=w-alpha*dj_dw
+            self.b-=alpha*dj_db
+            self.w-=alpha*dj_dw
             
             if i<num_iters:
                 J_hist.append(self.CostFunctionCalc(x, y))
@@ -70,9 +70,9 @@ class LinearRegression:
             
             #for visualization purpose only
             if i%math.ceil(num_iters/10)==0:
-                print(f"Iterations {i}: Cost: {J_hist[-1]} ",
-                      f"dj_dw: {dj_dw}, dj_sdb: {dj_db} ",
-                      f"w: {w}, b: {b} "
+                print(f"Iterations {i: 5}: Cost: {J_hist[-1]:0.2e} ",
+                      f"dj_dw: {dj_dw: 0.3e}, dj_sdb: {dj_db: 0.3e} ",
+                      f"w: {self.w: 0.3e}, b: {self.b: 0.5e} "
                       )
         
-        return w, b, J_hist, p_hist
+        return self.w, self.b, J_hist, p_hist
