@@ -29,7 +29,7 @@ class LinearRegression:
         
         return costSum
 
-    def countGradient(self, X, y_test):
+    def __computeGradient(self, X, y_test):
         N = X.shape[0]
         dj_dw = 0
         dj_db = 0
