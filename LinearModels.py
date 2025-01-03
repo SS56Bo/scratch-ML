@@ -57,7 +57,7 @@ class LinearRegression:
         y=y_train
 
         for i in range(num_iters):
-            dj_dw, dj_db = self.countGradient(x, y)
+            dj_dw, dj_db = self.__computeGradient(x, y)
 
             #updating the weights in the algorithm
             self.b-=alpha*dj_db
@@ -75,3 +75,8 @@ class LinearRegression:
                       )
         
         return self.w, self.b, J_hist, p_hist
+
+class PolynomialRegression:
+    def __init__(self, w, b):
+        self.w = float(w)
+        self.b = float(b)
