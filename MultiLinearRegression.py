@@ -11,5 +11,6 @@ def MultilinearRegression(X_train):
 
     return f_wb
 
-X_TRAIN = np.array([4,8,8,0,5])
+X_TRAIN = np.array([4,8,8,0,5], dtype='float')
+print(X_TRAIN)
 print(MultilinearRegression(X_TRAIN))
