@@ -2,7 +2,7 @@ import numpy as np
 import math
 
 class LinearRegression:
-    
+
     def __init__(self, w, b):
         self.w = float(w)
         self.b = float(b)
@@ -13,7 +13,7 @@ class LinearRegression:
         f_wb = np.zeros(N)
         for i in range(N):
             f_wb[i]=np.dot(self.w, X[i])+self.b
-        
+
         return f_wb
 
     def CostFunctionCalc(self, X, test):
@@ -26,7 +26,7 @@ class LinearRegression:
             f_wb[i]=np.dot(self.w, X[i])+self.b
             cost = (1/N)*((test[i]-f_wb[i])**2)
             costSum += cost
-        
+
         return costSum
 
     def __computeGradient(self, X, y_test):
@@ -41,12 +41,12 @@ class LinearRegression:
             dj_db += dj_db_i
         dj_db=dj_db/N
         dj_dw=dj_dw/N
-        
+
         return dj_dw, dj_db
-    
+
     def Gradient_Descent(self, X_train, y_train, w_in, b_in, alpha, num_iters):
         """
-        performs gradient descent to find a better fit for w,b. Updates w,b 
+        performs gradient descent to find a better fit for w,b. Updates w,b
         by taking numberof iterations with learning rate alpha
         """
         self.w=w_in
@@ -62,21 +62,21 @@ class LinearRegression:
             #updating the weights in the algorithm
             self.b-=alpha*dj_db
             self.w-=alpha*dj_dw
-            
+
             if i<num_iters:
                 J_hist.append(self.CostFunctionCalc(x, y))
                 p_hist.append([self.w, self.b])
-            
+
             #for visualization purpose only
             if i%math.ceil(num_iters/10)==0:
                 print(f"Iterations {i: 5}: Cost: {J_hist[-1]:0.2e} ",
                       f"dj_dw: {dj_dw: 0.3e}, dj_sdb: {dj_db: 0.3e} ",
                       f"w: {self.w: 0.3e}, b: {self.b: 0.5e} "
                       )
-        
+
         return self.w, self.b, J_hist, p_hist
 
-class PolynomialRegression:
+class MultipleLinearRegression:
     def __init__(self, w, b):
         self.w = float(w)
         self.b = float(b)
