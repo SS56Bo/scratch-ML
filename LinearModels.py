@@ -1,3 +1,4 @@
+from re import error
 import numpy as np
 import math
 
@@ -7,7 +8,7 @@ class LinearRegression:
         self.w = float(w)
         self.b = float(b)
 
-    def Regression(self, X):
+    def LinearRegression(self, X):
         X= np.array(X, dtype=float)
         N = X.shape[0]
         f_wb = np.zeros(N)
@@ -77,6 +78,28 @@ class LinearRegression:
         return self.w, self.b, J_hist, p_hist
 
 class MultipleLinearRegression:
-    def __init__(self, w, b):
+    def MultiLR(self, X, w, b):
         self.w = float(w)
         self.b = float(b)
+        X=np.array(X, dtype=float)
+        predict = np.dot(X, self.w)+self.b
+        return predict
+
+    def CostFunction(self, X,y,w,b):
+        self.w=float(w)
+        self.b=float(b)
+        X=np.array(X, dtype=float)
+        N=X.shape[0]
+        predict = np.dot(X,self.w)+self.b
+        errors = predict-y
+        cost = (1/(2*N))*np.sum(errors**2)
+        return cost
+
+    def GradientDescentCalc(self, X, y, w, b):
+        N = X.shape[0]
+        predict = np.dot(X,self.w)+self.b
+        errors = predict-y
+        X = X.T
+        dj_dw = (1/N)*np.dot(X, error)
+        dj_db = (1/N)*np.dot(error)
+        return dj_db
