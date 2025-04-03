@@ -1,4 +1,3 @@
-from re import error
 import numpy as np
 import math
 
