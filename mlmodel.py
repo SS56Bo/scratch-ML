@@ -68,3 +68,36 @@ class LinearModel:
         def fit_transform(self, X):
             X = cp.asarray(X, dtype=cp.float32)
             return self.w*X+self.b
+        
+        def predict(self, X):
+            X = cp.asarray(X, dtype=cp.float32)
+            return self.w*X+self.b
+        
+        def __CostFunction(self, X, y, alpha):
+            #basically will use Ridge adjustment
+            X = cp.asarray(X, dtype=cp.float32)
+            y_in = cp.asarray(y_in, dtype=cp.float32)
+            N = X.shape[0]
+            err = self.fit_transform(X)-y_in
+            residuals = cp.sum(cp.power(err, 2))
+            ridge_penalty = (alpha*cp.power(self.w,2))
+            total_cost = (residuals+ridge_penalty)/N
+            return total_cost
+        
+        def _ComputeGradientDescent(self, X, y_in, alpha):
+            X = cp.asarray(X, dtype=float)
+            y_in = cp.asarray(y_in, dtype=float)
+            N = X.shape[0]
+            Y_predict = self.fit_transform(X)
+            err = Y_predict-y_in
+            dj_dw = (2/N)*cp.sum((err)*X)+(2*alpha*self.w)  # L2 Regression
+            dj_db = (2/N)*cp.sum((err))
+            return dj_dw, dj_db
+        
+        def GradientOptimization(self, X, y, w_in=0.0, b_in=0.0, alpha=1, eta=0.01, epoch=1000):
+            self.w = w_in
+            self.b = b_in
+            X_train = X
+            y_train = y
+            J_hist = []
+            weight_hist = []
