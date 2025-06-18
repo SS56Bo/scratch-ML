@@ -101,3 +101,11 @@ class LinearModel:
             y_train = y
             J_hist = []
             weight_hist = []
+
+            for i in range(epoch):
+                dj_dw_i, dj_db_i = self._ComputeGradientDescent(X_train, y_train, alpha=1)
+                dj_dw_i = cp.clip(dj_dw_i, -max_gradient, max_gradient)
+                dj_db_i = cp.clip(dj_db_i, -max_gradient, max_gradient)
+
+                self.w -= eta*dj_dw_i
+                self.b -= eta*dj_db_i
